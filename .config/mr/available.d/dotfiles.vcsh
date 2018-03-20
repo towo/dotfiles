@@ -1,5 +1,5 @@
 [$XDG_CONFIG_HOME/vcsh/repo.d/dotfiles.git]
-checkout = vcsh clone git@github.com:towo/dotfiles.git dotfiles
+checkout = vcsh clone https://github.com/towo/dotfiles dotfiles && echo 'ZDOTDIR=$HOME/.config/zsh/' > $HOME/.zshenv
 update   = vcsh dotfiles pull --rebase
 push     = vcsh dotfiles push
 status   = vcsh dotfiles status
