@@ -1,0 +1,231 @@
+set nocompatible " You never know on which silly vim I'll use this.
+
+" paths
+set undodir=$XDG_CACHE_HOME/vim/undo
+set directory=$XDG_CACHE_HOME/vim/swap
+set backupdir=$XDG_CACHE_HOME/vim/backup
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIMRUNTIME
+if has('viminfofile')
+	set viminfofile=$XDG_CACHE_HOME/vim/viminfo
+endif
+
+" Load some plugins
+call plug#begin("$XDG_DATA_HOME/vim/plugins")
+Plug 'airblade/vim-gitgutter'
+Plug 'chikamichi/mediawiki.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'dikiaap/minimalist'
+Plug 'edkolev/tmuxline.vim'
+Plug 'junegunn/vim-peekaboo'
+Plug 'godlygeek/tabular'
+Plug 'hashivim/vim-vagrant'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/gist-vim'
+Plug 'mattn/webapi-vim'
+Plug 'morhetz/gruvbox'
+Plug 'pearofducks/ansible-vim'
+Plug 'rodjek/vim-puppet'
+Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'tmhedberg/matchit'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'vim-perl/vim-perl'
+Plug 'vim-syntastic/syntastic'
+Plug 'wellle/tmux-complete.vim'
+Plug 'yuttie/comfortable-motion.vim'
+call plug#end()
+
+" vim-plug configuration
+let g:plug_window = '-tabnew'
+let g:plug_pwindow = 'vertical rightbelow new'
+
+" Syntax highlighting.
+syntax on
+filetype plugin indent on
+
+" Omni completion per syntax
+set omnifunc=syntaxcomplete#Complete
+
+" completion menu
+set wildmenu
+set wildmode=list:full
+
+" file handling
+set viminfo='1000,<1000,s16,h " viminfo specifications
+set autoread " automatically reload files
+
+" No toolbars. Should be in .config/vim/gvimrc
+set guioptions-=T
+
+" sane backspace behaviour
+set backspace=indent,eol,start
+
+" allow toggling paste mode with F2
+set pastetoggle=<F2>
+
+" general appearance
+set number         " Show current line number
+set relativenumber " Show following line numbers for movement commands
+set hlsearch       " Highlight search terms
+set showmatch      " Show matching block characters when closing
+set splitbelow     " Do vertical splits below
+set splitright     " Do horizontal splits to the right
+set cursorline     " Give line with cursor a special background
+set cursorcolumn   " Give column with cursor a special background
+"set showcmd        " Show commands as they're being typed
+
+" remove some of the more annoying "Press ENTER" messages
+set shortmess=astT
+" show tabs and trailing whitespace
+set list
+set listchars=tab:»·,trail:•,extends:❯,precedes:❮
+set showbreak=↪•   " show line breaks when doing visual wrapping
+set copyindent     " try to copy indentation when adding new lines
+set preserveindent " try to copy indentation when reindenting lines
+
+" Suffixes that get lower priority when doing tab completion for filenames.
+" These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+
+" statusline trickery
+set laststatus=2  " always show status line
+set showtabline=2 " always show buffer/tab line
+set noshowmode
+
+" python3 from powerline.vim import setup as powerline_setup
+" python3 powerline_setup()
+" python3 del powerline_setup
+
+" airline
+if !exists('g:airline_symbols')
+	let g:airline_symbols = {}
+endif
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#obsession#enabled = 1
+let g:airline#extensions#syntastic#enabled = 1
+let g:airline_skip_empty_sections = 1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_theme = 'gruvbox'
+
+" syntastic
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+" let g:syntastic_error_symbol = "✗✗"
+let g:syntastic_error_symbol = "✗"
+" let g:syntastic_style_error_symbol = "✗✗"
+let g:syntastic_style_error_symbol = "✗"
+"let g:syntastic_warning_symbol = "∆∆"
+let g:syntastic_warning_symbol = "⚠️"
+"let g:syntastic_style_warning_symbol = "∆∆"
+let g:syntastic_style_warning_symbol = "⚠️"
+let g:syntastic_yaml_checkers = [ 'yamllint' ]
+let g:syntastic_always_populate_loc_list = 1
+
+highlight link SyntasticErrorSign SignColumn
+highlight link SyntasticWarningSign SignColumn
+highlight link SyntasticStyleErrorSign SignColumn
+highlight link SyntasticStyleWarningSign SignColumn
+
+" colors
+set background=dark
+set t_Co=256
+let g:gruvbox_contrast_dark='high'
+colorscheme gruvbox
+
+" remove arrow keys for educational purposes
+" not removed in insert mode, just normal/visual
+noremap <up>     <nop>
+noremap <down>   <nop>
+noremap <left>   <nop>
+noremap <right>  <nop>
+noremap <BS>     <nop>
+
+" auto-magic search
+nnoremap / /\v
+vnoremap / /\v
+
+map //  :nohlsearch<CR>; echo 'Search highlight cleared' <CR>
+
+" elevate with sudo
+cmap w!! w !sudo sponge %
+
+" filetype matches
+au BufNewFile,BufRead *.md set filetype=markdown
+autocmd BufNewFile,BufRead *.eyaml   set ft=yaml
+
+" syntax specialties
+let g:html_indent_tags = 'p\|li\|nav'
+
+" mouse support
+set mouse=nv              " allow mouse in normal + visual
+set clipboard=unnamedplus " integrate yank with system clipboard
+
+" screen refresh/gitgutter update time (in ms AFAIK)
+set updatetime=100
+
+" turn on/off relative number on changing window and to/from nsert mode
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+:augroup END
+
+" Shows character of line exceeding 80 chars in special backdrop; not with all
+" lines; h/t Damien Conway
+highlight ColorColumn ctermfg=black ctermbg=grey
+call matchadd('ColorColumn', '\%81v', 100)
+
+" italicize comments; needs italics support in your TE/screen manager
+highlight Comment cterm=italic
+
+" NERDtree stuff
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+map <Leader>n :NERDTreeToggle<CR>
+map <Leader>N :NERDTreeFind<CR>
+
+" gist config
+let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
+
+" vim tmux navigator
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+" switch relative numbers on/off on keypress
+function! ToggleRelativeNumber()
+	if &relativenumber
+		set norelativenumber
+	else
+		set relativenumber
+	endif
+endfunction
+nmap <Leader>r :call ToggleRelativeNumber()<CR>
+
+" Append modeline after last line in buffer.
+" Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
+" files.
+function! AppendModeline()
+	let l:modeline = printf(" vim: set ts=%d sw=%d tw=%d %set :",
+	\ &tabstop, &shiftwidth, &textwidth, &expandtab ? '' : 'no')
+	let l:modeline = substitute(&commentstring, "%s", l:modeline, "")
+	call append(line("$"), l:modeline)
+endfunction
+nnoremap <silent> <Leader>ml :call AppendModeline()<CR>

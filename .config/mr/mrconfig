@@ -1,0 +1,12 @@
+[DEFAULT]
+lib =
+	connected() {
+		if command -v nmcli >/dev/null 2>&1; then
+			ACTIVE_CONNECTION=$(nmcli connection show --active $1)
+			if [ -n "$ACTIVE_CONNECTION" ]; then
+				return 0
+			fi
+		fi
+		return 1
+	}
+include = cat $XDG_CONFIG_HOME/mr/config.d/* /usr/share/mr/git-subtree /usr/share/mr/git-svn

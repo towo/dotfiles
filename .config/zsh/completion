@@ -1,0 +1,25 @@
+# add fpath for completion plugins
+fpath=($ZDOTDIR/completions $fpath)
+
+#zstyle :compinstall filename "$ZSHHOME/completion"
+autoload -Uz compinit; compinit -u -d $XDG_CACHE_HOME/zsh/zcompdump
+
+zstyle ':completion:*' menu select=1
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 'ma=01;41'
+zstyle ':completion:*' use-cache-on
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/
+zstyle ':completien:*' rehash true
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
+
+if [[ "${+aliases[run-help]}" == 1 ]]; then
+	unalias run-help
+fi
+
+autoload -U run-help
+autoload run-help-git
+autoload run-help-sudo
+autoload run-help-openssl
+autoload run-help-ip
+
+# vim: filetype=zsh

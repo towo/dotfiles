@@ -1,0 +1,24 @@
+# editor check logic
+if [ -z "$EDITOR" ]; then
+	if command -v vim NUL; then
+		export EDITOR="$(echo =vim)"
+	else
+		if command -v vi NUL; then
+			EDITOR="$(echo =vi)"
+			echo "W: using $EDITOR instead of vim";
+		else
+			echo "E: no usable default editor found";
+		fi
+	fi
+fi
+
+# pager check logic
+if [ -z $PAGER ]; then
+	if command -v less NUL; then
+		PAGER=$(which less);
+	else
+		echo "E: Could not find usable version of less.";
+	fi
+fi
+
+#  vim: set ts=8 sw=8 tw=0 noet ft=zsh :

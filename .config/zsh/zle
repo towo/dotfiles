@@ -1,0 +1,5 @@
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^x^e' edit-command-line
+
+#  vim: set ts=8 sw=8 tw=0 noet ft=zsh :

@@ -1,0 +1,56 @@
+check_local_vars () {
+	if (($# == 0)); then
+		echo "check_local_vars got no variables to check"
+	else
+		for i; do
+			if [ -z "\$$variable" ]; then
+				echo "$variable is not set in local variables"
+			fi
+		done
+	fi
+}
+
+md5sum-rename () {
+	for file in $@; do
+		ext="${file##*.}";
+		sum="$(md5sum $file | cut -f1 -d' ')";
+		mv $file $sum.$ext;
+	done
+}
+
+strip-ircmeta () {
+	grep -v '>>' | perl -i -pe 's/..:..:.. [^>]+> //; s/^..:..:..  \* \w+ //; s/--- Log.*//';
+}
+
+lg () {
+	arguments=$*
+	echo \"$arguments\"
+	/bin/grep --color=always $arguments | less -r
+}
+
+precmd() {
+	if [ -n "${TMUX}" ]; then
+		local _tmux_env;
+		_tmux_env=$(tmux show-environment);
+		if [ "${_tmux_env}" != "${_expected_tmux_env}" ]; then
+			eval $(echo "${_tmux_env}" | sed -e '/^-/!{ s/=/="/; s/$/"/; s/^/export /; }' -e 's/^-/unset /' -e 's/$/;/');
+			_expected_tmux_env="${_tmux_env}";
+		fi;
+	fi;
+}
+
+confreduce() {
+	grep -v '^\s*#' | sed '/^$/d'
+}
+
+# Taken from https://github.com/slashbeast/conf-mgmt/blob/master/roles/zsh/files/DOTzshrc
+escape() {
+	# Uber useful when you need to translate weird as fuck path into single-argument string.
+	local escape_string_input
+	echo -n "String to escape: "
+	read escape_string_input
+	printf '%q\n' "$escape_string_input"
+}
+
+
+# vim: filetype=zsh

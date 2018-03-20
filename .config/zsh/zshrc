@@ -1,0 +1,156 @@
+# Everything about this configuration is XDG-oriented, so unless we reach the
+# marvelous edge case of zsh actually using $XDG_CONFIG_HOME, bail if $ZDOTDIR
+# is unset
+if [[ -z "$ZDOTDIR" ]]; then
+	echo 'E: $ZDOTDIR is not set, this configuration assumes it should be.'
+	exit 42
+fi
+
+# Set XDG variables if they aren't already set
+export XDG_BIN_HOME="${XDG_BIN_HOME:-$HOME/.local/bin}"
+export XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+export XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+export XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+export XDG_LIB_HOME="${XDG_LIB_HOME:-$HOME/.local/lib}"
+
+# Source user dirs and export them, if present
+if [[ -e "$XDG_CONFIG_HOME/user-dirs.dirs" ]]; then
+	setopt ALL_EXPORT
+	source $XDG_CONFIG_HOME/user-dirs.dirs
+	unsetopt ALL_EXPORT
+fi
+
+if [[ -z "$XDG_RUNTIME_DIR" ]]; then
+	# We've left systemd territory, oh boy.
+	# We're not gonna deal with creating usable tmpdirs, instead we'll just
+	# annoy the user with messages he'll have to look up in the zshrc.
+	SESSION_BASEDIR="/tmp/session"
+	export XDG_RUNTIME_DIR="$SESSION_BASEDIR/$(id -u)"
+	if ! [[ -d "$SESSION_BASEDIR" ]]; then
+		mkdir $SESSION_BASEDIR
+		chmod 777 $SESSION_BASEDIR
+	fi
+	mkdir -p $XDG_RUNTIME_DIR
+	#echo "W: XDG_RUNTIME_DIR not set, using unsafe temporary dir $XDG_RUNTIME_DIR"
+fi
+
+export TMPDIR=$XDG_RUNTIME_DIR # define TMPDIR so it's user-uniqueish
+
+# Ensure all the directories our zsh will use are present
+for dir in $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME; do
+	if ! [[ -d "$dir/zsh" ]]; then
+		mkdir $dir/zsh
+	fi
+done
+
+# allow for setting host-specific "global"ish vars
+LOCALVARS="${XDG_CONFIG_HOME}/local"
+if [[ -e $LOCALVARS ]]; then
+	source $LOCALVARS;
+fi
+
+# outsourced configuration bits
+source $ZDOTDIR/xdg-configs
+source $ZDOTDIR/aliases
+source $ZDOTDIR/functions
+source $ZDOTDIR/default-applications
+source $ZDOTDIR/completion
+source $ZDOTDIR/zle
+
+# Upgrade terminal from screen - requires 'NUL' alias for cleanliness, but must
+# be before theme... so here.
+if [[ $TERM == 'screen' ]]; then
+	if infocmp tmux-256color NUL; then
+		export TERM=tmux-256color
+	else
+		export TERM=screen-256color
+	fi
+fi
+
+# themes and plugins
+source $ZDOTDIR/theme-config
+source $ZDOTDIR/antigen
+
+# include dircolors
+eval $(dircolors $ZDOTDIR/dircolors);
+
+# colour support
+autoload colors; colors
+
+# history
+HISTFILE="${XDG_DATA_HOME}/zsh/history"
+HISTSIZE=10000
+SAVEHIST=10000
+
+# Allows tying "< $file" to read $file with $PAGER
+READNULLCMD=$PAGER
+
+#for version in $HOME/.gem/ruby/*; do
+#	PATH="$version/bin:$PATH"
+#done
+PATH="$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$PATH"
+
+# watch for other logins
+LOGCHECK=10
+WATCH=notme
+WATCHFMT="%D %T: User %B%n%b %a at %l%(M: from %M:)"
+
+# ls quoting style
+export QUOTING_STYLE="escape"
+
+# pass clip time
+export PASSWORD_STORE_CLIP_TIME='120'
+
+# duplicity options
+export DUPLICITY_OPTS='--use-agent --encrypt-key $KEYID --exclude /home/towo/.local/share/Steam --exclude /home/towo/Videos --exclude /home/towo/src --exclude /home/towo/Downloads --exclude /home/towo/.local/share/gnome-boxes --exclude /home/towo/.local/share/Trash --exclude /home/towo/.cache'
+
+# git stuff; only validate if git actually exists
+if command -v git NUL; then
+	check_local_vars GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL
+fi
+
+# mail notifications
+mailpath=( ${HOME}/Maildir'?New mail(s) in inbox' )
+
+# Just in case I'm not setting EDITOR=vim on a system, which is a non-case...
+if [[ "${EDITOR}" == *vim ]]; then
+	if [[ -e "${XDG_CONFIG_HOME}/vim/vimrc" ]]; then
+		export VIMINIT=":source ${XDG_CONFIG_HOME}/vim/vimrc"
+	fi
+
+	# Create vim directories that will indoubitably be used.
+	for dir in \
+		"${XDG_CACHE_HOME}/vim/backup" \
+		"${XDG_CACHE_HOME}/vim/swap" \
+		"${XDG_CACHE_HOME}/vim/undo"; do
+		if ! [[ -d "$dir" ]]; then
+			mkdir -p "${dir}";
+		fi
+	done
+fi
+
+setopt appendhistory \
+	autocd \
+	auto_continue \
+	beep \
+	completealiases \
+	dvorak \
+	extended_history \
+	extendedglob \
+	hist_expire_dups_first \
+	hist_ignore_dups \
+	hist_ignore_space \
+	hist_verify \
+	noflowcontrol \
+	nomatch \
+	share_history
+
+bindkey -e  # emacs bindings? might want to look at vi bindings.
+ttyctl -f   # auto-reset terminal
+
+# Allow for host-specific zshrcs
+# This a bit of a duplicate for the host-based "vars" above, so I might just
+# remove it
+if [[ -f $ZDOTDIR/zshrc.$HOST ]]; then
+	source $ZDOTDIR/zshrc.$HOST
+fi

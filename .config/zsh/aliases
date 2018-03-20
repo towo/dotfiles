@@ -1,0 +1,33 @@
+# command aliases
+alias ls='ls --color=auto --classify --group-directories-first --human-readable'
+alias ssh='TERM=screen ssh'
+alias ssha='ssh -o ForwardAgent=yes'
+alias grep='grep --color=auto'
+alias rm='rm -i'
+
+# temp testing
+alias ln='ln -v'
+alias chmod="chmod -c"
+alias chown="chown -c"
+
+# XDG adjustments
+alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
+alias svn="svn --config-dir \"${XDG_CONFIG_HOME}/subversion\""
+
+# global aliases
+alias -g G='| grep'
+alias -g H='| head'
+alias -g T='| tail'
+alias -g L='| less'
+alias -g S='| sort'
+alias -g C='| xclip -i -sel p -f | xclip -i -sel c'
+alias -g X='| perl -pe "chomp if eof" | xclip -i -sel p -f | xclip -i -sel c'
+alias -g NUL='> /dev/null 2>&1'
+
+# existence-dependent
+if command -v colordiff NUL; then
+	alias diff="colordiff -ua"
+else
+	alias diff="diff -ua"
+fi
+# vim: filetype=zsh

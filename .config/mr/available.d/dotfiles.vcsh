@@ -1,0 +1,6 @@
+[$XDG_CONFIG_HOME/vcsh/repo.d/dotfiles.git]
+checkout = vcsh clone git@github.com:towo/dotfiles.git dotfiles
+update   = vcsh dotfiles pull --rebase
+push     = vcsh dotfiles push
+status   = vcsh dotfiles status
+gc       = vcsh dotfiles gc
