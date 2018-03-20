@@ -22,23 +22,6 @@ strip-ircmeta () {
 	grep -v '>>' | perl -i -pe 's/..:..:.. [^>]+> //; s/^..:..:..  \* \w+ //; s/--- Log.*//';
 }
 
-lg () {
-	arguments=$*
-	echo \"$arguments\"
-	/bin/grep --color=always $arguments | less -r
-}
-
-precmd() {
-	if [ -n "${TMUX}" ]; then
-		local _tmux_env;
-		_tmux_env=$(tmux show-environment);
-		if [ "${_tmux_env}" != "${_expected_tmux_env}" ]; then
-			eval $(echo "${_tmux_env}" | sed -e '/^-/!{ s/=/="/; s/$/"/; s/^/export /; }' -e 's/^-/unset /' -e 's/$/;/');
-			_expected_tmux_env="${_tmux_env}";
-		fi;
-	fi;
-}
-
 confreduce() {
 	grep -v '^\s*#' | sed '/^$/d'
 }
@@ -51,6 +34,5 @@ escape() {
 	read escape_string_input
 	printf '%q\n' "$escape_string_input"
 }
-
 
 # vim: filetype=zsh
