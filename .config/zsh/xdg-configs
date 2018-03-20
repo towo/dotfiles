@@ -36,6 +36,8 @@ export TERMINFO="${XDG_DATA_HOME}/terminfo"
 export VAGRANT_DOTFILE_PATH="${XDG_CACHE_HOME}/vagrant"
 export VAGRANT_HOME="${XDG_DATA_HOME}/vagrant"
 export VBOX_USER_HOME="${XDG_DATA}/vagrant"
+export VCSH_GITIGNORE_D="${XDG_CONFIG_HOME}/vcsh/gitignore.d"
+export VCSH_GITATTRIBUTES_D="${XDG_CONFIG_HOME}/vcsh/gitattributes.d"
 export VIMINIT=":source ${XDG_CONFIG_HOME}/vim/vimrc"
 if [[ -e "${XDG_CONFIG_HOME}/wgetrc" ]]; then
 	export WGETRC="${XDG_CONFIG_HOME}/wgetrc"
