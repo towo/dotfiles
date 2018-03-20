@@ -39,7 +39,7 @@ export TMPDIR=$XDG_RUNTIME_DIR # define TMPDIR so it's user-uniqueish
 # Ensure all the directories our zsh will use are present
 for dir in $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME; do
 	if ! [[ -d "$dir/zsh" ]]; then
-		mkdir $dir/zsh
+		mkdir -p $dir/zsh
 	fi
 done
 
