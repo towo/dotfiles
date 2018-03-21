@@ -1,0 +1,5 @@
+#!/bin/sh
+if [ -n "$GIT_VCSH_BASE" ]; then
+	echo "Adding origin as $GIT_VCSH_BASE/$VCSH_DIRECTORY.git"
+	vcsh $VCSH_DIRECTORY remote add origin $GIT_VCSH_BASE/$VCSH_DIRECTORY.git
+fi
