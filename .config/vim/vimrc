@@ -169,7 +169,8 @@ autocmd BufNewFile,BufRead *.md    set filetype=markdown | let g:table_mode_corn
 autocmd BufNewFile,BufRead *.eyaml set ft=yaml
 
 " syntax specialties
-let g:html_indent_tags = 'p\|li\|nav'
+let g:html_indent_tags = 'p\|li\|nav' " HTML filetype indentation tags
+set synmaxcol=200                     " stop vim being very slow with overlong lines
 
 " mouse support
 set mouse=nv              " allow mouse in normal + visual
