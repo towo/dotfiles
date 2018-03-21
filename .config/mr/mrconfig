@@ -1,5 +1,5 @@
 [DEFAULT]
-lib =
+lib = 
 	connected() {
 		if command -v nmcli >/dev/null 2>&1; then
 			for connection in "$@"; do
@@ -14,4 +14,5 @@ lib =
 		fi
 		return 1
 	}
-include = cat $XDG_CONFIG_HOME/mr/config.d/* /usr/share/mr/git-subtree /usr/share/mr/git-svn
+
+include = cat /usr/share/mr/git-svn /usr/share/mr/git-subtree $XDG_DATA_HOME/mr/config.d $XDG_CONFIG_HOME/mr/config.d/*
