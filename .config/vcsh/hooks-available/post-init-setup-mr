@@ -1,0 +1,13 @@
+#!/bin/bash
+# This sets up your new repos with mr.Taken from RichiH, adopted for
+# XDG_CONFIG_HOME by towo.
+# Set GIT_VCSH_BASE to whatever "base" you want ahead of all your dotfiles
+# repositories, e.g. git@github.com:$USER
+if [ -d "$XDG_CONFIG_HOME/mr/available.d" ] && [ -n "$GIT_VCSH_BASE" ]; then
+	echo "Registering $VCSH_DIRECTORY in $XDG_CONFIG_HOME/mr/available.d/$VCSH_DIRECTORY.vcsh"
+	cat > $XDG_CONFIG_HOME/mr/available.d/$VCSH_DIRECTORY.vcsh <<- EOF
+	[\$XDG_CONFIG_HOME/vcsh/repo.d/$VCSH_DIRECTORY.git]
+	checkout = vcsh clone $GIT_VCSH_BASE/$VCSH_DIRECTORY.git
+	EOF
+	ln -s $XDG_CONFIG_HOME/mr/available.d/$VCSH_DIRECTORY.vcsh $XDG_CONFIG_HOME/mr/config.d/
+fi
