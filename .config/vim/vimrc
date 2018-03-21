@@ -15,6 +15,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'chikamichi/mediawiki.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dikiaap/minimalist'
+Plug 'dhruvasagar/vim-table-mode'
 " Plug 'edkolev/tmuxline.vim'
 Plug 'junegunn/vim-peekaboo'
 Plug 'godlygeek/tabular'
@@ -164,8 +165,8 @@ map //  :nohlsearch<CR>; echo 'Search highlight cleared' <CR>
 cmap w!! w !sudo sponge %
 
 " filetype matches
-au BufNewFile,BufRead *.md set filetype=markdown
-autocmd BufNewFile,BufRead *.eyaml   set ft=yaml
+autocmd BufNewFile,BufRead *.md    set filetype=markdown | let g:table_mode_corner='|'
+autocmd BufNewFile,BufRead *.eyaml set ft=yaml
 
 " syntax specialties
 let g:html_indent_tags = 'p\|li\|nav'
