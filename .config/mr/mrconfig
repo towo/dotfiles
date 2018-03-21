@@ -2,10 +2,15 @@
 lib =
 	connected() {
 		if command -v nmcli >/dev/null 2>&1; then
-			ACTIVE_CONNECTION=$(nmcli connection show --active $1)
-			if [ -n "$ACTIVE_CONNECTION" ]; then
-				return 0
-			fi
+			for connection in "$@"; do
+				[ ${verbose:=""} ] && echo -n "Checking for connection $connection: "
+				ACTIVE_CONNECTION=$(nmcli connection show --active $connection)
+				if [ -n "$ACTIVE_CONNECTION" ]; then
+					[ $verbose ] && echo "yarp"
+					return 0
+				fi
+				[ $verbose ] && echo "nope"
+			done
 		fi
 		return 1
 	}
