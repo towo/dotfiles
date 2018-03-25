@@ -1,5 +1,5 @@
 [DEFAULT]
-lib = 
+lib =
 	connected() {
 		if command -v nmcli >/dev/null 2>&1; then
 			for connection in "$@"; do
