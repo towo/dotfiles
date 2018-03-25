@@ -15,4 +15,4 @@ lib =
 		return 1
 	}
 
-include = cat /usr/share/mr/git-svn /usr/share/mr/git-subtree $XDG_DATA_HOME/mr/config.d $XDG_CONFIG_HOME/mr/config.d/*
+include = cat $XDG_DATA_HOME/mr/git-svn $XDG_DATA_HOME/mr/git-subtree $XDG_DATA_HOME/mr/config.d $XDG_CONFIG_HOME/mr/config.d/*
