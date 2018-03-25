@@ -1,0 +1,19 @@
+#!/bin/sh
+# Combined from ek9s granular scripts for easier checkout
+if ! test "$(git config core.sparseCheckout)" = "true"; then
+    git config core.sparseCheckout true
+    cat >> $GIT_DIR/info/sparse-checkout << EOF
+*
+!.gitignore
+!LICENSE
+!LICENSE.md
+!LICENSE.txt
+!README
+!README.md
+!README.txt
+!Dockerfile
+!Dockerfile*
+!circle.yml
+!.travis.yml
+EOF
+fi

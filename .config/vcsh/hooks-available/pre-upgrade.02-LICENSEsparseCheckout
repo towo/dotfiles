@@ -1,9 +1,0 @@
-#!/bin/sh
-if ! test ; then
-    cat >> $GIT_DIR/info/sparse-checkout << EOF
-#/ from pre-upgrade.02-LICENSEsparseCheckout
-!LICENSE
-!LICENSE.md
-!LICENSE.txt
-EOF
-fi
