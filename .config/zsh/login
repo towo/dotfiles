@@ -2,15 +2,16 @@
 
 if [ -n "$UPDATE_DOTFILE_REPO" ]; then
 	remotes=$(vcsh "$UPDATE_DOTFILE_REPO" remote -v \
-		| grep '\(fetch\)'\
-		| awk '{print $2}')
+		| grep '\(fetch\)')
 	for remote in $remotes; do
-		if [[ "$remote" == http* ]]; then
-			git remote update $remote
+		remote_name="$(echo $remote | awk '{print $1}')"
+		remote_url="$(echo $remote | awk '{print $2}')"
+		if [[ "$remote_url" == http* ]]; then
+			vcsh "$UPDATE_DOTFILE_REPO" remote update $remote_name
 		else
 			# Probably an SSH remote, check for SSH agent
 			if [[ -n "$SSH_AUTH_SOCK" ]]; then
-				git remote update $remote
+				vcsh "$UPDATE_DOTFILE_REPO" remote update $remote
 			fi
 		fi
 	done
