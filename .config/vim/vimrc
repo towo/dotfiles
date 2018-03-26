@@ -145,7 +145,7 @@ highlight link SyntasticStyleWarningSign SignColumn
 set background=dark
 set t_Co=256
 let g:gruvbox_contrast_dark='high'
-if match(&runtimepath, 'gruvbox') != -1
+if filereadable(expand("$XDG_DATA_HOME/vim/plugins/gruvbox/colors/gruvbox.vim"))
 	colorscheme gruvbox
 endif
 
