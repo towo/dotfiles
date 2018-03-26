@@ -71,8 +71,5 @@
 !/.local/share
 !/.local/share/mr
 !/.local/share/mr/config.d
-<<<<<<< HEAD
 !/.local/share/mr/git-subtree
 !/.local/share/mr/git-svn
-=======
->>>>>>> Update dotfiles gitignore
