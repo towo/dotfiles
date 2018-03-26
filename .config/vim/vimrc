@@ -206,6 +206,9 @@ let g:DevIconsEnableFoldersOpenClose = 1
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>N :NERDTreeFind<CR>
 
+" Tagbar settings
+map <Leader>t :TagbarToggle<CR>
+
 " gist config
 let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
 
