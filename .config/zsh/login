@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+if [ -n "$UPDATE_DOTFILE_REPO" ]; then
+	remotes=$(vcsh "$UPDATE_DOTFILE_REPO" remote -v \
+		| grep '\(fetch\)'\
+		| awk '{print $2}')
+	for remote in $remotes; do
+		if [[ "$remote" == http* ]]; then
+			git remote update $remote
+		fi
+	done
+	local_head =$(vcsh "$UPDATE_DOTFILE_REPO" rev-parse @)
+	remote_head=$(vcsh "$UPDATE_DOTFILE_REPO" rev-parse @{u})
+	if ! [[ "$remote_head" == "$local_head" ]]; then
+		echo "Configuration files are out of date.";
+	fi
+fi
