@@ -81,6 +81,15 @@ autoload colors; colors
 HISTFILE="${XDG_DATA_HOME}/zsh/history"
 HISTSIZE=10000
 SAVEHIST=10000
+if grep -q "${USER}.*bash" /etc/passwd; then
+	HISTFILE="${HOME}/.bash_history"
+	setopt append_history
+else
+	HISTFILE="${XDG_DATA_HOME}/zsh/history"
+	setopt extended_history
+	setopt share_history
+	setopt appendhistory
+fi
 
 # Allows tying "< $file" to read $file with $PAGER
 READNULLCMD=$PAGER
@@ -129,21 +138,18 @@ if [[ "${EDITOR}" == *vim ]]; then
 	done
 fi
 
-setopt appendhistory \
-	autocd \
+setopt autocd \
 	auto_continue \
 	beep \
 	completealiases \
 	dvorak \
-	extended_history \
 	extendedglob \
 	hist_expire_dups_first \
 	hist_ignore_dups \
 	hist_ignore_space \
 	hist_verify \
 	noflowcontrol \
-	nomatch \
-	share_history
+	nomatch
 
 bindkey -e  # emacs bindings? might want to look at vi bindings.
 ttyctl -f   # auto-reset terminal
