@@ -1,6 +1,6 @@
 function puppet_environment () {
 	if [[ -r '/etc/puppetlabs/puppet/puppet.conf' ]]; then
-		grep '^[^#]*environment' /etc/puppetlabs/puppet/puppet.conf | sed 's/^.*environment\s*=\s*\(\S*\)\s*$/\1/'
+		grep '^[^#]*environment\s*=' /etc/puppetlabs/puppet/puppet.conf | sed 's/^.*environment\s*=\s*\(\S*\)\s*$/\1/'
 	fi
 }
 
