@@ -1,7 +1,7 @@
 set nocompatible " You never know on which silly vim I'll use this.
 
 " paths
-set undodir=$XDG_CACHE_HOME/vim/undo
+if v:version >= 703 | set undodir=$XDG_CACHE_HOME/vim/undo | endif
 set directory=$XDG_CACHE_HOME/vim/swap
 set backupdir=$XDG_CACHE_HOME/vim/backup
 set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIMRUNTIME
@@ -72,13 +72,15 @@ set pastetoggle=<F2>
 
 " general appearance
 set number         " Show current line number
-set relativenumber " Show following line numbers for movement commands
 set hlsearch       " Highlight search terms
 set showmatch      " Show matching block characters when closing
 set splitbelow     " Do vertical splits below
 set splitright     " Do horizontal splits to the right
-set cursorline     " Give line with cursor a special background
-set cursorcolumn   " Give column with cursor a special background
+if v:version >= 703
+	set relativenumber " Show following line numbers for movement commands
+	set cursorline     " Give line with cursor a special background
+	set cursorcolumn   " Give column with cursor a special background
+endif
 "set showcmd        " Show commands as they're being typed
 
 " remove some of the more annoying "Press ENTER" messages
@@ -182,12 +184,13 @@ set clipboard=unnamedplus " integrate yank with system clipboard
 set updatetime=100
 
 " turn on/off relative number on changing window and to/from nsert mode
-:augroup numbertoggle
-:  autocmd!
-:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
-:augroup END
-
+if v:version >= 703
+	:augroup numbertoggle
+	:  autocmd!
+	:  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+	:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+	:augroup END
+endif
 " Shows character of line exceeding 80 chars in special backdrop; not with all
 " lines; h/t Damien Conway
 highlight ColorColumn ctermfg=black ctermbg=grey
