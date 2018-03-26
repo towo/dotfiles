@@ -88,9 +88,10 @@ set shortmess=astT
 " show tabs and trailing whitespace
 set list
 set listchars=tab:»·,trail:•,extends:❯,precedes:❮
-set showbreak=↪•   " show line breaks when doing visual wrapping
-set copyindent     " try to copy indentation when adding new lines
-set preserveindent " try to copy indentation when reindenting lines
+set showbreak=↪•      " show line breaks when doing visual wrapping
+set copyindent        " try to copy indentation when adding new lines
+set preserveindent    " try to copy indentation when reindenting lines
+set fillchars=vert:\│ " vertical fill character
 
 " Suffixes that get lower priority when doing tab completion for filenames.
 " These are files we are not likely to want to edit or read.
