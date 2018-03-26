@@ -16,6 +16,7 @@ alias chown="chown -c"
 # XDG adjustments
 alias tmux="tmux -f $XDG_CONFIG_HOME/tmux/tmux.conf"
 alias svn="svn --config-dir \"${XDG_CONFIG_HOME}/subversion\""
+alias osc="osc -c $XDG_CONFIG_HOME/oscrc"
 
 # global aliases
 alias -g G='| grep'
