@@ -5,6 +5,9 @@ alias ssha='ssh -o ForwardAgent=yes'
 alias grep='grep --color=auto'
 alias rm='rm -i'
 
+# haxx
+alias compinit='compinit -u'
+
 # temp testing
 alias ln='ln -v'
 alias chmod="chmod -c"

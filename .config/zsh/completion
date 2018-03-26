@@ -2,7 +2,7 @@
 fpath=($ZDOTDIR/completions $fpath)
 
 #zstyle :compinstall filename "$ZSHHOME/completion"
-autoload -Uz compinit; compinit -u -d $XDG_CACHE_HOME/zsh/zcompdump
+autoload -Uz compinit; compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 
 zstyle ':completion:*' menu select=1
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} 'ma=01;41'
