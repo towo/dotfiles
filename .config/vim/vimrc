@@ -39,7 +39,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-perl/vim-perl'
 Plug 'vim-syntastic/syntastic'
 Plug 'wellle/tmux-complete.vim'
-Plug 'yuttie/comfortable-motion.vim'
+if v:version > 704 || v:version == 704 && has("patch1578")
+	Plug 'yuttie/comfortable-motion.vim'
+endif
 call plug#end()
 
 " vim-plug configuration
