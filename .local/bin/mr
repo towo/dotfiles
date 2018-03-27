@@ -1963,7 +1963,7 @@ sub disable {
 		if (dotd_enabled($configuration)) {
 			dotd_disable($configuration);
 		} else {
-			my $target = find_candidate("${path_dotd_available}/${configuration}");
+			my $target = find_candidate("${path_dotd_enabled}/${configuration}");
 			next unless $target;
 			dotd_disable($target);
 		}
