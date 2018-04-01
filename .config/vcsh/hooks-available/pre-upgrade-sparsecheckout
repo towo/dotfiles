@@ -15,5 +15,6 @@ if ! test "$(git config core.sparseCheckout)" = "true"; then
 !Dockerfile*
 !circle.yml
 !.travis.yml
+!vcsh-bootstrap.sh
 EOF
 fi
