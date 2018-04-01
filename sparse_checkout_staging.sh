@@ -30,7 +30,8 @@ if [[ ${#REMAINING_TAGS[@]} -gt 0 ]]; then
 		read
 	done
 	echo "You can safely upgrade to the current master branch (probably):"
-	echo "vcsh-dotfiles $DOTFILES_REPO pull origin master"
+	echo "vcsh-dotfiles $DOTFILES_REPO checkout master"
+	echo "vcsh-dotfiles $DOTFILES_REPO pull"
 else
 	echo "No new sparse checkout tags present, HAND."
 fi
