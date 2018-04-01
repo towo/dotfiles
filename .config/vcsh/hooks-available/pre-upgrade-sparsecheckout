@@ -1,8 +1,7 @@
 #!/bin/sh
 # Combined from ek9s granular scripts for easier checkout
-if ! test "$(git config core.sparseCheckout)" = "true"; then
-    git config core.sparseCheckout true
-    cat >> $GIT_DIR/info/sparse-checkout << EOF
+git config core.sparseCheckout true
+cat >> $GIT_DIR/info/sparse-checkout << EOF
 *
 !.gitignore
 !LICENSE
@@ -16,5 +15,5 @@ if ! test "$(git config core.sparseCheckout)" = "true"; then
 !circle.yml
 !.travis.yml
 !vcsh-bootstrap.sh
+!sparse_checkout_staging.sh
 EOF
-fi
