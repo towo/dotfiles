@@ -20,13 +20,7 @@ HOOKS_PATH="${BASE_PATH}/hooks-enabled"
 HOOK_SPARSE_CHECKOUT_URL="https://raw.githubusercontent.com/towo/dotfiles/master/.config/vcsh/hooks-available/pre-upgrade-sparsecheckout"
 HOOK_BACKUP_URL="https://raw.githubusercontent.com/towo/dotfiles/master/.config/vcsh/hooks-available/pre-merge.00-backupOriginalFiles"
 VCSH_URL="https://raw.githubusercontent.com/towo/dotfiles/master/.local/bin/vcsh"
-
-# If we're deploying on a system that uses shitty OpenSSL for git…
-if ldd $(which git) | grep -q libcrypto.so.0.9.8; then
-	DOTFILES_URL="git@github.com:towo/dotfiles.git"
-else
-	DOTFILES_URL="https://github.com/towo/dotfiles"
-fi
+DOTFILES_URL="https://github.com/towo/dotfiles"
 
 # Ensure we can actually deploy the hooks
 mkdir -p "$HOOKS_PATH"
