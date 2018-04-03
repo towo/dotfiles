@@ -1,6 +1,6 @@
 set nocompatible " You never know on which silly vim I'll use this.
 
-" paths
+" Path definitions {{{1
 if v:version >= 703 | set undodir=$XDG_CACHE_HOME/vim/undo | endif
 set directory=$XDG_CACHE_HOME/vim/swap
 set backupdir=$XDG_CACHE_HOME/vim/backup
@@ -8,8 +8,8 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIMRUNTIME
 if has('viminfofile')
 	set viminfofile=$XDG_CACHE_HOME/vim/viminfo
 endif
-
-" Load some plugins
+" }}}
+" Plugin loading {{{1
 call plug#begin("$XDG_DATA_HOME/vim/plugins")
 Plug 'airblade/vim-gitgutter'
 Plug 'chikamichi/mediawiki.vim'
@@ -45,36 +45,37 @@ if v:version > 704 || v:version == 704 && has("patch1578")
 	Plug 'yuttie/comfortable-motion.vim'
 endif
 call plug#end()
-
-" vim-plug configuration
-let g:plug_window = '-tabnew'
-let g:plug_pwindow = 'vertical rightbelow new'
-
-" Syntax highlighting.
+" }}}
+" vim native settings {{{1
+" Syntax {{{2
 syntax on
 filetype plugin indent on
 
 " Omni completion per syntax
 set omnifunc=syntaxcomplete#Complete
-
-" completion menu
+" stop vim being very slow with overlong lines
+set synmaxcol=200
+"}}}
+" completion settings {{{2
+" Suffixes that get lower priority in tab completion
+" These are files we are not likely to want to edit or read.
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
+" Wild menu for overview purposes
 set wildmenu
 set wildmode=list:full
-
-" file handling
+" }}}
+" file handling {{{2
 set viminfo='1000,<1000,s16,h,n$XDG_CACHE_HOME/vim/viminfo " viminfo specifications
 set autoread " automatically reload files
+" }}}
+" input settings {{{2
+set backspace=indent,eol,start " sane backspace behaviour
 
-" No toolbars. Should be in .config/vim/gvimrc
-set guioptions-=T
-
-" sane backspace behaviour
-set backspace=indent,eol,start
-
-" allow toggling paste mode with F2
-set pastetoggle=<F2>
-
-" general appearance
+" mouse support
+set mouse=nv              " allow mouse in normal + visual
+set clipboard=unnamedplus " integrate yank with system clipboard
+" }}}
+" general appearance {{{2
 set number         " Show current line number
 set hlsearch       " Highlight search terms
 set showmatch      " Show matching block characters when closing
@@ -85,32 +86,31 @@ if v:version >= 703
 	set cursorline     " Give line with cursor a special background
 	set cursorcolumn   " Give column with cursor a special background
 endif
-"set showcmd        " Show commands as they're being typed
-
 " remove some of the more annoying "Press ENTER" messages
 set shortmess=astT
-" show tabs and trailing whitespace
+
+" screen refresh/gitgutter update time (in ms AFAIK)
+set updatetime=100
+" }}}
+" on-screen characters {{{2
 set list
 set listchars=tab:»·,trail:•,extends:❯,precedes:❮
-set showbreak=↪•      " show line breaks when doing visual wrapping
+set showbreak=↪•              " show line breaks when doing visual wrapping
+set fillchars=vert:\│,fold:\─ " vertical, horizontal fill character
+" }}}
+" content settings {{{2
 set copyindent        " try to copy indentation when adding new lines
 set preserveindent    " try to copy indentation when reindenting lines
-set fillchars=vert:\│ " vertical fill character
-
-" Suffixes that get lower priority when doing tab completion for filenames.
-" These are files we are not likely to want to edit or read.
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
-
-" statusline trickery
+set pastetoggle=<F2>  " allow toggling paste mode with F2
+" }}}
+" statusline trickery {{{2
 set laststatus=2  " always show status line
 set showtabline=2 " always show buffer/tab line
 set noshowmode
-
-" python3 from powerline.vim import setup as powerline_setup
-" python3 powerline_setup()
-" python3 del powerline_setup
-
-" airline
+" }}}
+" }}}
+" Plugin settings {{{1
+" airline {{{2
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
@@ -128,8 +128,8 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_theme = 'gruvbox'
-
-" syntastic
+"}}}
+" syntastic {{{2
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 " let g:syntastic_error_symbol = "✗✗"
@@ -142,57 +142,97 @@ let g:syntastic_warning_symbol = "⚠️"
 let g:syntastic_style_warning_symbol = "⚠️"
 let g:syntastic_yaml_checkers = [ 'yamllint' ]
 let g:syntastic_always_populate_loc_list = 1
-
+"}}}
+" pandoc {{{2
+let g:pandoc#filetypes#handled = ['pandoc', 'markdown']
+let g:pandoc#filetypes#pandoc_markdown = 1
+"}}}
+" NERDtree {{{2
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+" }}}
+" vim-plug {{{2
+let g:plug_window = '-tabnew'
+let g:plug_pwindow = 'vertical rightbelow new'
+" }}}
+" gist {{{2
+let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
+" }}}
+" html {{{2
+let g:html_indent_tags = 'p\|li\|nav' " HTML filetype indentation tags
+" }}}
+" vim tmux navigator {{{2
+let g:tmux_navigator_no_mappings = 1
+" }}}
+" }}}
+" Advanced appearance {{{1
+" highlight adjustments {{{2
+" Syntastic {{{3
 highlight link SyntasticErrorSign SignColumn
 highlight link SyntasticWarningSign SignColumn
 highlight link SyntasticStyleErrorSign SignColumn
 highlight link SyntasticStyleWarningSign SignColumn
+"}}}
+" colored 80char column {{{3
+" Shows character of line exceeding 80 chars in special backdrop; not with all
+" lines; h/t Damien Conway
+highlight ColorColumn ctermfg=black ctermbg=grey
+call matchadd('ColorColumn', '\%81v', 100)
+" }}}
+" italicize comments {{{3
+" needs italics support in TE/screen manager
+highlight Comment cterm=italic
+" }}}
+" }}}
 
-" pandoc
-let g:pandoc#filetypes#handled = ['pandoc', 'markdown']
-let g:pandoc#filetypes#pandoc_markdown = 0
-
-" colors
+" colors {{{2
 set background=dark
 set t_Co=256
 let g:gruvbox_contrast_dark='high'
 if filereadable(expand("$XDG_DATA_HOME/vim/plugins/gruvbox/colors/gruvbox.vim"))
 	colorscheme gruvbox
 endif
-
-" remove arrow keys for educational purposes
+" }}}
+" }}}
+" Keymaps {{{1
+" remove arrow keys for educational purposes{{{2
 " not removed in insert mode, just normal/visual
 noremap <up>     <nop>
 noremap <down>   <nop>
 noremap <left>   <nop>
 noremap <right>  <nop>
 noremap <BS>     <nop>
-
-" auto-magic search
+"}}}
+" auto-magic search {{{2
 nnoremap / /\v
 vnoremap / /\v
-
 map //  :nohlsearch<CR>; echo 'Search highlight cleared' <CR>
-
-" elevate with sudo
+"}}}
+" NERDTree {{{2
+map <Leader>n :NERDTreeToggle<CR>
+map <Leader>N :NERDTreeFind<CR>
+"}}}
+" tagbar {{{2
+map <Leader>t :TagbarToggle<CR>
+" }}}
+" force write w/ sudo {{{2
 cmap w!! w !sudo sponge %
-
-" filetype matches
-autocmd BufNewFile,BufRead *.md    set filetype=markdown | let g:table_mode_corner='|'
-autocmd BufNewFile,BufRead *.eyaml set ft=yaml
-
-" syntax specialties
-let g:html_indent_tags = 'p\|li\|nav' " HTML filetype indentation tags
-set synmaxcol=200                     " stop vim being very slow with overlong lines
-
-" mouse support
-set mouse=nv              " allow mouse in normal + visual
-set clipboard=unnamedplus " integrate yank with system clipboard
-
-" screen refresh/gitgutter update time (in ms AFAIK)
-set updatetime=100
-
-" turn on/off relative number on changing window and to/from nsert mode
+"}}}
+" vim-tmux-navigator {{{2
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+" }}}
+"}}}
+" Auto commands {{{1
+" filetype matches {{{2
+autocmd BufNewFile,BufRead *.md              set filetype=markdown | let g:table_mode_corner='|'
+autocmd BufNewFile,BufRead *.eyaml           set ft=yaml
+autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
+"}}}
+" turn on/off relative number on changing window and to/from nsert mode {{{2
 if v:version >= 703
 	:augroup numbertoggle
 	:  autocmd!
@@ -200,35 +240,10 @@ if v:version >= 703
 	:  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
 	:augroup END
 endif
-" Shows character of line exceeding 80 chars in special backdrop; not with all
-" lines; h/t Damien Conway
-highlight ColorColumn ctermfg=black ctermbg=grey
-call matchadd('ColorColumn', '\%81v', 100)
-
-" italicize comments; needs italics support in your TE/screen manager
-highlight Comment cterm=italic
-
-" NERDtree stuff
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
-map <Leader>n :NERDTreeToggle<CR>
-map <Leader>N :NERDTreeFind<CR>
-
-" Tagbar settings
-map <Leader>t :TagbarToggle<CR>
-
-" gist config
-let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
-
-" vim tmux navigator
-let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
-
-" switch relative numbers on/off on keypress
+" }}}
+" }}}
+" Functions {{{1
+" switch relative numbers on/off on keypress {{{2
 function! ToggleRelativeNumber()
 	if &relativenumber
 		set norelativenumber
@@ -237,8 +252,9 @@ function! ToggleRelativeNumber()
 	endif
 endfunction
 nmap <Leader>r :call ToggleRelativeNumber()<CR>
+" }}}
 
-" Append modeline after last line in buffer.
+" Append modeline after last line in buffer. {{{2
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
 function! AppendModeline()
@@ -248,3 +264,6 @@ function! AppendModeline()
 	call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+" }}}
+" }}}
+" vim: set fdm=marker :
