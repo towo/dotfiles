@@ -40,6 +40,7 @@ Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-perl/vim-perl'
 Plug 'vim-syntastic/syntastic'
+Plug 'vim-voom/VOoM'
 Plug 'wellle/tmux-complete.vim'
 if v:version > 704 || v:version == 704 && has("patch1578")
 	Plug 'yuttie/comfortable-motion.vim'
