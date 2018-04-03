@@ -13,6 +13,7 @@ endif
 call plug#begin("$XDG_DATA_HOME/vim/plugins")
 Plug 'airblade/vim-gitgutter'
 Plug 'chikamichi/mediawiki.vim'
+Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'dikiaap/minimalist'
 Plug 'dhruvasagar/vim-table-mode'
