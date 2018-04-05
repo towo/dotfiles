@@ -1,5 +1,5 @@
 #!/bin/sh
-ACTIVE_TASKS=$(task active_list | tail -n +3)
+ACTIVE_TASKS=$(task rc.verbose:nothing active_list)
 LINES=$(echo $ACTIVE_TASKS | wc -l);
 case $LINES in
 	0)
