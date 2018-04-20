@@ -12,6 +12,7 @@ endif
 " Plugin loading {{{1
 call plug#begin("$XDG_DATA_HOME/vim/plugins")
 Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'
 Plug 'chikamichi/mediawiki.vim'
 Plug 'chrisbra/csv.vim'
 Plug 'christoomey/vim-tmux-navigator'
@@ -168,6 +169,12 @@ let g:html_indent_tags = 'p\|li\|nav' " HTML filetype indentation tags
 " vim tmux navigator {{{2
 let g:tmux_navigator_no_mappings = 1
 " }}}
+" ansible {{{2
+let g:ansible_unindent_after_newline = 1
+" }}}
+" vimux {{{2
+let g:VimuxOrientation = 'v'
+let g:VimuxUseNearest = 0
 " }}}
 " Advanced appearance {{{1
 " highlight adjustments {{{2
@@ -268,6 +275,14 @@ function! AppendModeline()
 	call append(line("$"), l:modeline)
 endfunction
 nnoremap <silent> <Leader>ml :call AppendModeline()<CR>
+
+" After the first call to :VimuxRunCommand, set UseNearest {{{2
+function! VimuxRunCommandOnceNewPane(command)
+	call VimuxRunCommand(a:command)
+	let g:VimuxUseNearest = 0
+endfunction
+command! -nargs=1 VRun call VimuxRunCommandOnceNewPane(<f-args>)
+" }}}
 " }}}
 " }}}
 " vim: set fdm=marker :
