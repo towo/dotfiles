@@ -94,10 +94,7 @@ fi
 # Allows tying "< $file" to read $file with $PAGER
 READNULLCMD=$PAGER
 
-#for version in $HOME/.gem/ruby/*; do
-#	PATH="$version/bin:$PATH"
-#done
-PATH="$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$PATH"
+PATH="$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$GEM_HOME/bin:$PATH"
 
 # watch for other logins
 LOGCHECK=10
