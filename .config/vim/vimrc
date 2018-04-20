@@ -106,6 +106,7 @@ set fillchars=vert:\│,fold:\─ " vertical, horizontal fill character
 " content settings {{{2
 set copyindent        " try to copy indentation when adding new lines
 set preserveindent    " try to copy indentation when reindenting lines
+set breakindent       " If wrapping, wrap to indentation of previous line.
 set pastetoggle=<F2>  " allow toggling paste mode with F2
 " }}}
 " statusline trickery {{{2
@@ -236,12 +237,16 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 " }}}
+" vimux {{{2
+map <Leader>l :VimuxRunLastCommand<CR>
+" }}}
 "}}}
 " Auto commands {{{1
 " filetype matches {{{2
 autocmd BufNewFile,BufRead *.md              set filetype=markdown | let g:table_mode_corner='|'
-autocmd BufNewFile,BufRead *.eyaml           set ft=yaml
+autocmd BufNewFile,BufRead *.eyaml           set filetype=yaml
 autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
+autocmd BufNewFile,BufRead *.rb              set filetype=ruby ts=2 sw=2 et
 "}}}
 " turn on/off relative number on changing window and to/from nsert mode {{{2
 if v:version >= 703
