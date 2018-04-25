@@ -34,7 +34,7 @@ if [[ -z "$XDG_RUNTIME_DIR" ]]; then
 	#echo "W: XDG_RUNTIME_DIR not set, using unsafe temporary dir $XDG_RUNTIME_DIR"
 fi
 
-export TMPDIR=$XDG_RUNTIME_DIR # define TMPDIR so it's user-uniqueish
+# export TMPDIR=$XDG_RUNTIME_DIR # define TMPDIR so it's user-uniqueish
 
 # Ensure all the directories our zsh will use are present
 for dir in $XDG_CACHE_HOME $XDG_CONFIG_HOME $XDG_DATA_HOME; do
