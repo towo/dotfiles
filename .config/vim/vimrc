@@ -243,10 +243,12 @@ map <Leader>l :VimuxRunLastCommand<CR>
 "}}}
 " Auto commands {{{1
 " filetype matches {{{2
+autocmd BufNewFile,BufRead *.yaml            set filetype=yaml ts=2 sw=2 et
 autocmd BufNewFile,BufRead *.md              set filetype=markdown | let g:table_mode_corner='|'
 autocmd BufNewFile,BufRead *.eyaml           set filetype=yaml
 autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
 autocmd BufNewFile,BufRead *.rb              set filetype=ruby ts=2 sw=2 et
+autocmd BufNewFile,BufRead *.json            set filetype=json ts=2 sw=2 et
 "}}}
 " turn on/off relative number on changing window and to/from nsert mode {{{2
 if v:version >= 703
