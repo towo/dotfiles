@@ -1,0 +1,3 @@
+---
+user_dir: '/home/towo/.local/lib/gem/'
+install: --no-user-install
