@@ -104,9 +104,9 @@ set showbreak=↪•              " show line breaks when doing visual wrapping
 set fillchars=vert:\│,fold:\─ " vertical, horizontal fill character
 " }}}
 " content settings {{{2
-set copyindent        " try to copy indentation when adding new lines
-set preserveindent    " try to copy indentation when reindenting lines
-set breakindent       " If wrapping, wrap to indentation of previous line.
+" set copyindent        " try to copy indentation when adding new lines
+" set preserveindent    " try to copy indentation when reindenting lines
+" set breakindent       " If wrapping, wrap to indentation of previous line.
 set pastetoggle=<F2>  " allow toggling paste mode with F2
 " }}}
 " statusline trickery {{{2
