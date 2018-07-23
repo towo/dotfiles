@@ -273,7 +273,6 @@ function! ToggleRelativeNumber()
 endfunction
 nmap <Leader>r :call ToggleRelativeNumber()<CR>
 " }}}
-
 " Append modeline after last line in buffer. {{{2
 " Use substitute() instead of printf() to handle '%%s' modeline in LaTeX
 " files.
