@@ -19,18 +19,22 @@ Plug 'christoomey/vim-tmux-navigator'
 " Plug 'dikiaap/minimalist'
 Plug 'dhruvasagar/vim-table-mode'
 " Plug 'edkolev/tmuxline.vim'
+Plug 'fgsch/vim-varnish'
+Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/vim-peekaboo'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-vagrant'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
+Plug 'mrk21/yaml-vim'
 Plug 'morhetz/gruvbox'
 Plug 'pearofducks/ansible-vim'
 Plug 'rodjek/vim-puppet'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'stephpy/vim-yaml'
+" Plug 'SirVer/ultisnips'
 Plug 'tmhedberg/matchit'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
@@ -61,7 +65,7 @@ filetype plugin indent on
 " Omni completion per syntax
 set omnifunc=syntaxcomplete#Complete
 " stop vim being very slow with overlong lines
-set synmaxcol=200
+" set synmaxcol=200
 "}}}
 " completion settings {{{2
 " Suffixes that get lower priority in tab completion
