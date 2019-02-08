@@ -14,6 +14,7 @@ antigen bundle marzocchi/zsh-notify
 antigen bundle zuxfoucault/colored-man-pages_mod
 antigen bundle nviennot/zsh-vim-plugin
 antigen bundle rbirnie/oh-my-zsh-keybase
+antigen bundle mollifier/cd-gitroot
 antigen theme bhilburn/powerlevel9k powerlevel9k
 antigen apply
 

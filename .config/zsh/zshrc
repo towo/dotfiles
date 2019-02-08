@@ -157,3 +157,6 @@ ttyctl -f   # auto-reset terminal
 if [[ -f $ZDOTDIR/zshrc.$HOST ]]; then
 	source $ZDOTDIR/zshrc.$HOST
 fi
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.local/share/rvm/bin"
