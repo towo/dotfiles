@@ -1,10 +1,9 @@
 set nocompatible " You never know on which silly vim I'll use this.
-
 " Path definitions {{{1
 if v:version >= 703 | set undodir=$XDG_CACHE_HOME/vim/undo | endif
 set directory=$XDG_CACHE_HOME/vim/swap
 set backupdir=$XDG_CACHE_HOME/vim/backup
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIMRUNTIME
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,/usr/share/vim/vimfiles/,$VIMRUNTIME
 if has('viminfofile')
 	set viminfofile=$XDG_CACHE_HOME/vim/viminfo
 endif
@@ -24,17 +23,19 @@ Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/vim-peekaboo'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-vagrant'
+Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mrk21/yaml-vim'
 Plug 'morhetz/gruvbox'
 Plug 'pearofducks/ansible-vim'
+Plug 'pedrohdz/vim-yaml-folds'
 Plug 'rodjek/vim-puppet'
 Plug 'ryanoasis/vim-devicons'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'stephpy/vim-yaml'
-" Plug 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
 Plug 'tmhedberg/matchit'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
@@ -49,9 +50,10 @@ Plug 'vim-airline/vim-airline-themes'
 " Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'vim-perl/vim-perl'
 Plug 'vim-ruby/vim-ruby'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 Plug 'vim-voom/VOoM'
 Plug 'wellle/tmux-complete.vim'
+Plug 'w0rp/ale'
 if v:version > 704 || v:version == 704 && has("patch1578")
 	Plug 'yuttie/comfortable-motion.vim'
 endif
@@ -126,49 +128,31 @@ set noshowmode
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#obsession#enabled = 1
-let g:airline#extensions#syntastic#enabled = 1
-let g:airline_skip_empty_sections = 1
-let g:airline_left_sep = ''
+" let g:airline#extensions#syntastic#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#ycm#enabled = 1
 let g:airline_left_alt_sep = ''
-let g:airline_right_sep = ''
+let g:airline_left_sep = ''
+let g:airline_powerline_fonts = 1
 let g:airline_right_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_skip_empty_sections = 1
 let g:airline_symbols.branch = ''
-let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.readonly = ''
 let g:airline_theme = 'gruvbox'
 "}}}
-" syntastic {{{2
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
-" let g:syntastic_error_symbol = "✗✗"
-let g:syntastic_error_symbol = "✗"
-" let g:syntastic_style_error_symbol = "✗✗"
-let g:syntastic_style_error_symbol = "✗"
-"let g:syntastic_warning_symbol = "∆∆"
-let g:syntastic_warning_symbol = "⚠️"
-"let g:syntastic_style_warning_symbol = "∆∆"
-let g:syntastic_style_warning_symbol = "⚠️"
-let g:syntastic_yaml_checkers = [ 'yamllint' ]
-let g:syntastic_perl_checkers = [ 'perl' ]
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_enable_perl_checker = 1
-let g:syntastic_puppet_puppetlint_args = "--no-check_i18n-check"
-"}}}
-" pandoc {{{2
-let g:pandoc#filetypes#handled = ['pandoc', 'markdown']
-let g:pandoc#filetypes#pandoc_markdown = 1
-"}}}
-" NERDtree {{{2
-let g:WebDevIconsUnicodeDecorateFolderNodes = 1
-let g:DevIconsEnableFoldersOpenClose = 1
+" ale {{{
+" let g:ale_completion_enabled = 1
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_changed = 'normal'
 " }}}
-" vim-plug {{{2
-let g:plug_window = '-tabnew'
-let g:plug_pwindow = 'vertical rightbelow new'
+" ansible {{{2
+let g:ansible_unindent_after_newline = 1
 " }}}
 " gist {{{2
 let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
@@ -176,15 +160,50 @@ let g:gist_token_file = "$XDG_CONFIG_HOME/gist-vim"
 " html {{{2
 let g:html_indent_tags = 'p\|li\|nav' " HTML filetype indentation tags
 " }}}
+" NERDtree {{{2
+let g:WebDevIconsUnicodeDecorateFolderNodes = 1
+let g:DevIconsEnableFoldersOpenClose = 1
+" }}}
+" pandoc {{{2
+let g:pandoc#filetypes#handled = ['pandoc', 'markdown']
+let g:pandoc#filetypes#pandoc_markdown = 1
+"}}}
+" syntastic {{{2
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 0
+let g:syntastic_enable_perl_checker = 1
+" let g:syntastic_error_symbol = "✗"
+" let g:syntastic_error_symbol = "✗✗"
+let g:syntastic_perl_checkers = [ 'perl' ]
+let g:syntastic_puppet_puppetlint_args = "--no-check_i18n-check"
+" let g:syntastic_style_error_symbol = "✗"
+" let g:syntastic_style_error_symbol = "✗✗"
+" let g:syntastic_style_warning_symbol = "∆∆"
+" let g:syntastic_style_warning_symbol = "⚠️"
+" let g:syntastic_warning_symbol = "∆∆"
+" let g:syntastic_warning_symbol = "⚠️"
+let g:syntastic_yaml_checkers = [ 'yamllint' ]
+"}}}
+" ultisnips {{{
+" snippets
+let g:UltiSnipsExpandTrigger="<C-j>"
+let g:UltiSnipsJumpForwardTrigger="<C-j>"
+let g:UltiSnipsJumpBackwardTrigger="<C-k>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsListSnippets="<C-Space>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
+" }}}
 " vim tmux navigator {{{2
 let g:tmux_navigator_no_mappings = 1
-" }}}
-" ansible {{{2
-let g:ansible_unindent_after_newline = 1
 " }}}
 " vimux {{{2
 let g:VimuxOrientation = 'v'
 let g:VimuxUseNearest = 0
+" }}}
+" vim-plug {{{2
+let g:plug_window = '-tabnew'
+let g:plug_pwindow = 'vertical rightbelow new'
 " }}}
 " Advanced appearance {{{1
 " highlight adjustments {{{2
@@ -252,14 +271,19 @@ map <Leader>l :VimuxRunLastCommand<CR>
 "}}}
 " Auto commands {{{1
 " filetype matches {{{2
-autocmd BufNewFile,BufRead *.yaml            set filetype=yaml ts=2 sw=2 et
-autocmd BufNewFile,BufRead *.md              set filetype=markdown | let g:table_mode_corner='|'
-autocmd BufNewFile,BufRead *.eyaml           set filetype=yaml
-autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
-autocmd BufNewFile,BufRead *.rb              set filetype=ruby ts=2 sw=2 et
-autocmd BufNewFile,BufRead *.json            set filetype=json ts=2 sw=2 et
+augroup filetypes
+	autocmd BufNewFile,BufRead *.yaml            set filetype=yaml ts=2 sw=2 et
+	autocmd BufNewFile,BufRead *.md              set filetype=markdown | let g:table_mode_corner='|'
+	autocmd BufNewFile,BufRead *.eyaml           set filetype=yaml
+	autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
+	autocmd BufNewFile,BufRead *.rb              set filetype=ruby ts=2 sw=2 et
+	autocmd BufNewFile,BufRead *.json            set filetype=json ts=2 sw=2 et
+augroup END
+augroup templates
+	autocmd BufNewFile *.pp 0r ~/.config/vim/templates/puppet.pp
+augroup END
 "}}}
-" turn on/off relative number on changing window and to/from nsert mode {{{2
+" turn on/off relative number on changing window and to/from insert mode {{{2
 if v:version >= 703
 	:augroup numbertoggle
 	:  autocmd!
