@@ -205,6 +205,8 @@ let g:UltiSnipsJumpBackwardTrigger="<C-k>"
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsListSnippets="<C-Space>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "snips"]
+let g:snips_author=$GIT_AUTHOR_NAME
+let g:snips_email=$GIT_AUTHOR_EMAIL
 " }}}
 " vim tmux navigator {{{2
 let g:tmux_navigator_no_mappings = 1
