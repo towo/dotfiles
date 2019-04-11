@@ -244,7 +244,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 highlight Comment cterm=italic
 " }}}
 " }}}
-
 " colors {{{2
 set background=dark
 set t_Co=256
