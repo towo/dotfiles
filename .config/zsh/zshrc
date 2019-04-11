@@ -94,7 +94,7 @@ fi
 # Allows tying "< $file" to read $file with $PAGER
 READNULLCMD=$PAGER
 
-PATH="$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$GEM_HOME/bin:$PATH"
+PATH="$GEM_HOME/bin:$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$PATH"
 
 # watch for other logins
 LOGCHECK=10
