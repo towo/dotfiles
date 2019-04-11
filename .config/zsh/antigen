@@ -8,7 +8,6 @@ source $ZDOTDIR/antigen.zsh
 antigen bundle caarlos0/git-add-remote
 antigen bundle marzocchi/zsh-notify
 antigen bundle mollifier/cd-gitroot
-antigen bundle nviennot/zsh-vim-plugin
 antigen bundle rbirnie/oh-my-zsh-keybase
 antigen bundle rimraf/k
 antigen bundle skx/sysadmin-util
