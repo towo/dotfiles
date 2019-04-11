@@ -308,7 +308,7 @@ augroup filetypes
 	autocmd BufNewFile,BufRead *.json            set filetype=json ts=2 sw=2 et
 augroup END
 augroup templates
-	autocmd BufNewFile *.pp 0r ~/.config/vim/templates/puppet.pp
+	autocmd BufNewFile *.pp silent! call InsertSkeleton()
 augroup END
 "}}}
 " turn on/off relative number on changing window and to/from insert mode {{{2
