@@ -219,6 +219,12 @@ let g:VimuxUseNearest = 0
 let g:plug_window = '-tabnew'
 let g:plug_pwindow = 'vertical rightbelow new'
 " }}}
+" youcompleteme {{{
+" let g:ycm_enable_diagnostic_signs = 0
+" let g:ycm_enable_diagnostic_highlighting = 0
+" let g:ycm_always_populate_location_list = 0 "default 0
+" let g:ycm_open_loclist_on_ycm_diags = 0 "default 1
+" }}}
 " Advanced appearance {{{1
 " highlight adjustments {{{2
 " Syntastic {{{3
