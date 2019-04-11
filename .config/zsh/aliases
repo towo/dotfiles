@@ -34,4 +34,8 @@ if command -v colordiff NUL; then
 else
 	alias diff="diff -ua"
 fi
+
+if command -v nvim NUL; then
+	alias vim="nvim"
+fi
 # vim: filetype=zsh

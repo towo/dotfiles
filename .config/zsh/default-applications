@@ -1,6 +1,8 @@
 # editor check logic
 if [ -z "$EDITOR" ]; then
-	if command -v vim NUL; then
+	if command -v nvim NUL; then
+		export EDITOR="$(echo =nvim)"
+	elif command -v vim NUL; then
 		export EDITOR="$(echo =vim)"
 	else
 		if command -v vi NUL; then
