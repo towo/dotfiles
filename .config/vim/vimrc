@@ -90,6 +90,7 @@ set autoread " automatically reload files
 " }}}
 " input settings {{{2
 set backspace=indent,eol,start " sane backspace behaviour
+let mapleader=","
 
 " mouse support
 set mouse=nv              " allow mouse in normal + visual
