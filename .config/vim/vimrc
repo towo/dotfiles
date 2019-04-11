@@ -29,6 +29,7 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mrk21/yaml-vim'
 Plug 'morhetz/gruvbox'
+Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() }}
 Plug 'pearofducks/ansible-vim'
 Plug 'pedrohdz/vim-yaml-folds'
 Plug 'rodjek/vim-puppet'
@@ -53,7 +54,7 @@ Plug 'vim-ruby/vim-ruby'
 " Plug 'vim-syntastic/syntastic'
 Plug 'vim-voom/VOoM'
 Plug 'wellle/tmux-complete.vim'
-Plug 'w0rp/ale'
+" Plug 'w0rp/ale'
 if v:version > 704 || v:version == 704 && has("patch1578")
 	Plug 'yuttie/comfortable-motion.vim'
 endif
@@ -78,7 +79,9 @@ set wildmenu
 set wildmode=list:full
 " }}}
 " file handling {{{2
+if !has('nvim')
 set viminfo='1000,<1000,s16,h,n$XDG_CACHE_HOME/vim/viminfo " viminfo specifications
+endif
 set autoread " automatically reload files
 " }}}
 " input settings {{{2
@@ -128,18 +131,20 @@ set noshowmode
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-let g:airline#extensions#ale#enabled = 1
+" let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#obsession#enabled = 1
 " let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#ycm#enabled = 1
+" let g:airline#extensions#ycm#enabled = 1
 let g:airline_left_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_powerline_fonts = 1
 let g:airline_right_alt_sep = ''
 let g:airline_right_sep = ''
 let g:airline_skip_empty_sections = 1
+let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 let g:airline_symbols.branch = ''
 let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
@@ -147,9 +152,11 @@ let g:airline_symbols.readonly = ''
 let g:airline_theme = 'gruvbox'
 "}}}
 " ale {{{
-" let g:ale_completion_enabled = 1
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_set_balloons = 1
+" let g:ale_lint_on_insert_leave = 1
+" let g:ale_lint_on_text_changed = 'normal'
+" let g:ale_puppet_puppet_options = '--tasks'
+" let g:ale_puppet_puppetlint_options = '--no-check_i18n-check --no-autoloader_layout-check'
 " }}}
 " ansible {{{2
 let g:ansible_unindent_after_newline = 1
@@ -248,6 +255,15 @@ nnoremap / /\v
 vnoremap / /\v
 map //  :nohlsearch<CR>; echo 'Search highlight cleared' <CR>
 "}}}
+" coc{{{
+inoremap <silent><expr> <TAB>
+	\ pumvisible() ? "\<C-n>" :
+	\ <SID>check_back_space() ? "\<TAB>" :
+	\ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <silent><expr> <c-space> coc#refresh()
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+" }}}
 " NERDTree {{{2
 map <Leader>n :NERDTreeToggle<CR>
 map <Leader>N :NERDTreeFind<CR>
@@ -321,6 +337,53 @@ function! VimuxRunCommandOnceNewPane(command)
 	let g:VimuxUseNearest = 0
 endfunction
 command! -nargs=1 VRun call VimuxRunCommandOnceNewPane(<f-args>)
+" }}}
+" Insert value and try to expand snippet from it{{{
+function s:try_insert(skel)
+	execute "normal! i" . a:skel . "\<C-r>=UltiSnips#ExpandSnippet()\<CR>"
+	if g:ulti_expand_res == 0
+		silent! undo
+		return
+	endif
+	" enter insert mode and advance cursor (equivalent to typing `a`
+	" instead of `i`)
+	execute "startinsert"
+	call cursor(line('.'), col('.') + 1)
+	return g:ulti_expand_res
+endfunction
+"}}}
+" Insert skeleton{{{
+function! InsertSkeleton() abort
+	let filename = expand('%')
+	" abort on non-empty buffer or non-existant file
+	if !(line('$') == 1 && getline('$') == '') || filereadable(filename)
+		return
+	endif
+	if !empty('b:projectionist')
+		" Loop through projections with 'skeleton' key and try each
+		" one until the snippet expands
+		for [root, value] in projectionist#query('skeleton')
+			echo value
+			if s:try_insert(value)
+				return
+			endif
+		endfor
+	endif
+	call s:try_insert('skel')
+endfunction
+"}}}
+" coc.nvim{{{
+function! s:check_back_space() abort
+	let col = col('.') - 1
+	return !col || getline('.')[col - 1] =~# '\s'
+endfunction
+function! s:show_documentation()
+	if &filetype == 'vim'
+		execute 'h '.expand('<cword>')
+	else
+		call CocAction('doHover')
+	endif
+endfunction
 " }}}
 " }}}
 " }}}
