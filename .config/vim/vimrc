@@ -25,6 +25,7 @@ Plug 'junegunn/vim-peekaboo'
 Plug 'godlygeek/tabular'
 Plug 'hashivim/vim-vagrant'
 Plug 'honza/vim-snippets'
+Plug 'janko/vim-test'
 " Plug 'keith/rspec.vim'
 Plug 'majutsushi/tagbar'
 Plug 'maksimr/vim-jsbeautify'
@@ -43,6 +44,7 @@ Plug 'SirVer/ultisnips'
 Plug 'tmhedberg/matchit'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-obsession'
@@ -295,6 +297,9 @@ nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 " }}}
 " vimux {{{2
 map <Leader>l :VimuxRunLastCommand<CR>
+" }}}
+" vim-test {{{
+nmap <silent> <Leader>t :TestFile<CR>
 " }}}
 "}}}
 " Auto commands {{{1
