@@ -1,0 +1,13 @@
+{
+  "languageserver": {
+    "puppet": {
+      "command": "ruby",
+      "args": ["/opt/puppet-editor-services/puppet-languageserver","--stdio"],
+      "cwd": "/opt/puppet-editor-services",
+      "filetypes": ["puppet"],
+      "rootPatterns": [".git/", "metadata.json"]
+    }
+  },
+  "solargraph.checkGemVersion": false,
+  "solargraph.diagnostics": true
+}
