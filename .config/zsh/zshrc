@@ -94,7 +94,7 @@ fi
 # Allows tying "< $file" to read $file with $PAGER
 READNULLCMD=$PAGER
 
-PATH="$GEM_HOME/bin:$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$PATH"
+PATH="$HOME/bin:$HOME/.local/bin:$HOME/.local/lib/go/bin:$PATH"
 
 # watch for other logins
 LOGCHECK=10
@@ -157,6 +157,3 @@ ttyctl -f   # auto-reset terminal
 if [[ -f $ZDOTDIR/zshrc.$HOST ]]; then
 	source $ZDOTDIR/zshrc.$HOST
 fi
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.local/share/rvm/bin"
