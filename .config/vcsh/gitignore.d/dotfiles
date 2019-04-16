@@ -6,6 +6,7 @@
 !/.config/mr/config
 !/.config/mr/config.d
 !/.config/mr/config.d/dotfiles.vcsh
+!/.config/nvim/coc-settings.json
 !/.config/tmux
 !/.config/tmux/gruvbox.tmuxline
 !/.config/tmux/tmux.conf
