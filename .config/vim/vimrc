@@ -138,12 +138,9 @@ set noshowmode
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
-" let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#fugitiveline#enabled = 1
 let g:airline#extensions#obsession#enabled = 1
-" let g:airline#extensions#syntastic#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#ycm#enabled = 1
 let g:airline_left_alt_sep = ''
 let g:airline_left_sep = ''
 let g:airline_powerline_fonts = 1
@@ -158,13 +155,6 @@ let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.readonly = ''
 let g:airline_theme = 'gruvbox'
 "}}}
-" ale {{{
-" let g:ale_set_balloons = 1
-" let g:ale_lint_on_insert_leave = 1
-" let g:ale_lint_on_text_changed = 'normal'
-" let g:ale_puppet_puppet_options = '--tasks'
-" let g:ale_puppet_puppetlint_options = '--no-check_i18n-check --no-autoloader_layout-check'
-" }}}
 " ansible {{{2
 let g:ansible_unindent_after_newline = 1
 " }}}
@@ -187,20 +177,11 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_enable_perl_checker = 1
-" let g:syntastic_error_symbol = "✗"
-" let g:syntastic_error_symbol = "✗✗"
 let g:syntastic_perl_checkers = [ 'perl' ]
 let g:syntastic_puppet_puppetlint_args = "--no-check_i18n-check"
-" let g:syntastic_style_error_symbol = "✗"
-" let g:syntastic_style_error_symbol = "✗✗"
-" let g:syntastic_style_warning_symbol = "∆∆"
-" let g:syntastic_style_warning_symbol = "⚠️"
-" let g:syntastic_warning_symbol = "∆∆"
-" let g:syntastic_warning_symbol = "⚠️"
 let g:syntastic_yaml_checkers = [ 'yamllint' ]
 "}}}
 " ultisnips {{{
-" snippets
 let g:UltiSnipsExpandTrigger="<C-j>"
 let g:UltiSnipsJumpForwardTrigger="<C-j>"
 let g:UltiSnipsJumpBackwardTrigger="<C-k>"
@@ -221,11 +202,8 @@ let g:VimuxUseNearest = 0
 let g:plug_window = '-tabnew'
 let g:plug_pwindow = 'vertical rightbelow new'
 " }}}
-" youcompleteme {{{
-" let g:ycm_enable_diagnostic_signs = 0
-" let g:ycm_enable_diagnostic_highlighting = 0
-" let g:ycm_always_populate_location_list = 0 "default 0
-" let g:ycm_open_loclist_on_ycm_diags = 0 "default 1
+" vim-test {{{
+let test#strategy = "neovim"
 " }}}
 " Advanced appearance {{{1
 " highlight adjustments {{{2
@@ -311,6 +289,7 @@ augroup filetypes
 	autocmd BufNewFile,BufRead */playbooks/*.yml set filetype=yaml.ansible
 	autocmd BufNewFile,BufRead *.rb              set filetype=ruby ts=2 sw=2 et
 	autocmd BufNewFile,BufRead *.json            set filetype=json ts=2 sw=2 et
+	autocmd BufNewFile,BufRead *.java            set filetype=java ts=2 sw=2 et
 augroup END
 augroup templates
 	autocmd BufNewFile *.pp silent! call InsertSkeleton()
