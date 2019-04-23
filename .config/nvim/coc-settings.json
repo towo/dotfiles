@@ -8,6 +8,8 @@
       "rootPatterns": [".git/", "metadata.json"]
     }
   },
+  "suggest.maxCompleteItemCount": 100,
+  "suggest.enablePreview": true,
   "solargraph.checkGemVersion": false,
   "solargraph.diagnostics": true
 }
