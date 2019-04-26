@@ -6,6 +6,12 @@
       "cwd": "/opt/puppet-editor-services",
       "filetypes": ["puppet"],
       "rootPatterns": [".git/", "metadata.json"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     }
   },
   "suggest.maxCompleteItemCount": 100,
