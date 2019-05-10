@@ -23,6 +23,7 @@ Plug 'fgsch/vim-varnish'
 Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/vim-peekaboo'
 Plug 'godlygeek/tabular'
+Plug 'hallison/vim-rdoc'
 Plug 'hashivim/vim-vagrant'
 Plug 'honza/vim-snippets'
 Plug 'janko/vim-test'
@@ -255,6 +256,10 @@ inoremap <silent><expr> <TAB>
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <c-space> coc#refresh()
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 " }}}
 " NERDTree {{{2
 map <Leader>n :NERDTreeToggle<CR>
