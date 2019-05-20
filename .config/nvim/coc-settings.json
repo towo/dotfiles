@@ -5,7 +5,7 @@
       "args": ["/opt/puppet-editor-services/puppet-languageserver","--stdio"],
       "cwd": "/opt/puppet-editor-services",
       "filetypes": ["puppet"],
-      "rootPatterns": [".git/", "metadata.json"]
+      "rootPatterns": [".git/", "metadata.json", "environment.conf"]
     },
     "bash": {
       "command": "bash-language-server",
