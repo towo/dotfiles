@@ -37,7 +37,8 @@ Plug 'mattn/gist-vim'
 Plug 'mattn/webapi-vim'
 Plug 'mrk21/yaml-vim'
 Plug 'morhetz/gruvbox'
-Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() }}
+" Plug 'neoclide/coc.nvim', { 'do': { -> coc#util#install() }}
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-json', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-snippets', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc-solargraph', {'do': 'yarn install --frozen-lockfile'}
