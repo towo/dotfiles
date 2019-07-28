@@ -22,6 +22,7 @@ Plug 'danchoi/ri.vim'
 Plug 'dhruvasagar/vim-table-mode'
 Plug 'dkarter/bullets.vim'
 " Plug 'edkolev/tmuxline.vim'
+Plug 'farkasmate/epp-syntax-vim'
 Plug 'fgsch/vim-varnish'
 Plug 'jamessan/vim-gnupg'
 Plug 'junegunn/vim-peekaboo'
@@ -104,7 +105,7 @@ let mapleader=","
 
 " mouse support
 set mouse=nv              " allow mouse in normal + visual
-set clipboard=unnamedplus " integrate yank with system clipboard
+" set clipboard=unnamedplus " integrate yank with system clipboard
 " }}}
 " general appearance {{{2
 set number         " Show current line number
